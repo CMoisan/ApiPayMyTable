@@ -33,3 +33,5 @@ Possible improvements :
  - The management of errors, at this time when a ShortUrl Object is missing in the database we only send a 404 error. But when we also send a 404 error if the URL used is not working. In the case where we modify a ShortUrl we don't know if there is a problem with the URL or with the ShortUrl Object.
 
 - The way I am currently sending back the complete ShortUrl may not be the optimal way. It may be interesting to look into it.
+
+-MongoDB also try to connect to localhost everytime we start the API but fail because there is no localhost database. It does not affect the rest of the application.
