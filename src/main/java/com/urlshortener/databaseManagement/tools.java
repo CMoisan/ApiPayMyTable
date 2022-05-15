@@ -1,5 +1,11 @@
 package com.urlshortener.databaseManagement;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
 
 public class tools {
@@ -14,6 +20,19 @@ public class tools {
         }
         String saltStr = salt.toString();
         return saltStr;
+    }
 
+    public static boolean checkIfUrlWorks(String url) throws IOException {
+        URL u = new URL(url);
+        HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+        huc.setRequestMethod("GET");
+        try {
+            huc.connect();
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Url not working"
+            );
+        }
+        return true;
     }
 }

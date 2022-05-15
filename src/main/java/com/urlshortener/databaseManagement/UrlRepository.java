@@ -5,18 +5,14 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.urlshortener.classOP.Url;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 
 //Ameliorer en faisant en sorte que la db charge tout au début et que les recherches se fassent sur la copie locale. Tout changement se fait en ligne et en locale
-public class dbController {
+public class UrlRepository {
 
     private static final String username = "user";
     private static final String password = "password12345";
@@ -27,7 +23,7 @@ public class dbController {
     public MongoTemplate database;
     public List<Url> Datas;
 
-    public dbController(){
+    public UrlRepository(){
         ConnectionString connectionString = new ConnectionString("mongodb+srv://"+username+":"+password+"@"+host+"/"+databaseName+"?retryWrites=true&w=majority");
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
@@ -39,22 +35,42 @@ public class dbController {
         Datas = getAll();
     }
 
+    /**
+     * @param url
+     * @return
+     */
     public Url add(Url url){
         database.save(url, "URLs");
         Datas = getAll();
         return url;
     }
+
+    /**
+     * @param url
+     * @return
+     */
     public Url delete(Url url){
         database.remove(url, "URLs");
         Datas = getAll();
         return url;
     }
+
+    /**
+     * @param id
+     * @param newUrl
+     * @return
+     */
     public Url change(String id,String newUrl){
         Url url = get(id);
         url.setUrl(newUrl);
         add(url);
         return url;
     }
+
+    /**
+     * @param id
+     * @return
+     */
     public Url get(String id){
         List<Url> Datas = getAll();
         Url retour = null;
@@ -66,6 +82,10 @@ public class dbController {
         return retour;
     }
 
+    /**
+     * @param url
+     * @return
+     */
     public Url getFromUrl(String url){
         List<Url> Datas = getAll();
         Url retour = null;
@@ -77,6 +97,10 @@ public class dbController {
         return retour;
     }
 
+    /**
+     * @param short_url
+     * @return
+     */
     public Url request(String short_url){
         List<Url> Datas = getAll();
         Url retour = null;
@@ -88,6 +112,10 @@ public class dbController {
         }
         return retour;
     }
+
+    /**
+     * @return
+     */
     public List<Url> getAll(){
         return database.findAll(Url.class);
     }
