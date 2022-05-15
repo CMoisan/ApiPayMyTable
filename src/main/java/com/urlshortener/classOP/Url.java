@@ -1,11 +1,15 @@
 package com.urlshortener.classOP;
 
+import com.urlshortener.databaseManagement.Tools;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.net.UnknownHostException;
+
 @Document(collection = "URLs")
 public class Url {
+
     @Id
     private int id;
     @Field(value="Url")
@@ -31,6 +35,9 @@ public class Url {
         this.ShortUrl = ShortUrl;
     }
 
+    public void setLinkShortUrl(String Port) throws UnknownHostException {
+        this.ShortUrl = Tools.buildFullLink(Port) + ShortUrl;
+    }
     public String getShortUrl(){
         return this.ShortUrl;
     }

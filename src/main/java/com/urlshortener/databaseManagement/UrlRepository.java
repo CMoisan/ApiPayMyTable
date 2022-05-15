@@ -5,6 +5,8 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.urlshortener.classOP.Url;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
@@ -21,8 +23,10 @@ public class UrlRepository {
 
     public MongoClient mongoClient;
     public MongoTemplate database;
-    public List<Url> Datas;
 
+    /**
+     * Setup the database connexion
+     */
     public UrlRepository(){
         ConnectionString connectionString = new ConnectionString("mongodb+srv://"+username+":"+password+"@"+host+"/"+databaseName+"?retryWrites=true&w=majority");
         MongoClientSettings settings = MongoClientSettings.builder()
@@ -32,33 +36,33 @@ public class UrlRepository {
         //MongoDatabase database = mongoClient.getDatabase(databaseName);
 
         database = new MongoTemplate(mongoClient, databaseName);
-        Datas = getAll();
     }
 
     /**
-     * @param url
-     * @return
+     * Save a single Url object in the database
+     * @param url we want to save
+     * @return the url saved
      */
     public Url add(Url url){
         database.save(url, "URLs");
-        Datas = getAll();
         return url;
     }
 
     /**
-     * @param url
-     * @return
+     * Delete a single Url Object in the database
+     * @param url we want to remove
+     * @return the deleted url
      */
     public Url delete(Url url){
         database.remove(url, "URLs");
-        Datas = getAll();
         return url;
     }
 
     /**
-     * @param id
-     * @param newUrl
-     * @return
+     * Change the Url linked to a ShortUrl
+     * @param id of the ShortUrl we want to chant to change the URL
+     * @param newUrl is the Url we want to replace the current URL of the ShortUrl With
+     * @return The new ShortUrl Object
      */
     public Url change(String id,String newUrl){
         Url url = get(id);
@@ -68,8 +72,9 @@ public class UrlRepository {
     }
 
     /**
-     * @param id
-     * @return
+     * Get the ShortURL object from it's id
+     * @param id of the ShortUrl Object we want to retrieve
+     * @return the ShortUrl Object linked to the id
      */
     public Url get(String id){
         List<Url> Datas = getAll();
@@ -83,8 +88,9 @@ public class UrlRepository {
     }
 
     /**
-     * @param url
-     * @return
+     * Get the ShortURL object from it's Url
+     * @param url of the ShortUrl Object we want to retrieve
+     * @return the ShortUrl Object linked to the Url
      */
     public Url getFromUrl(String url){
         List<Url> Datas = getAll();
@@ -98,15 +104,15 @@ public class UrlRepository {
     }
 
     /**
-     * @param short_url
-     * @return
+     * Get the ShortURL object from it's ShortUrl
+     * @param short_url of the ShortUrl Object we want to retrieve
+     * @return the ShortUrl Object linked to the ShortURL
      */
     public Url request(String short_url){
         List<Url> Datas = getAll();
         Url retour = null;
         for(Url u : Datas){
-            String viewer = short_url.substring(short_url.length() - 5);
-            if(short_url.equals(u.getShortUrl().substring(u.getShortUrl().length() - 5))){
+            if(u.getShortUrl().equals(short_url)){
                 retour = u;
             }
         }
@@ -114,10 +120,19 @@ public class UrlRepository {
     }
 
     /**
-     * @return
+     * Get all the ShortUrl Objects in the Database
+     * @return a list of ShortUrl Objects
      */
     public List<Url> getAll(){
         return database.findAll(Url.class);
+    }
+
+    /**
+     * Get the number of Objects in the database
+     * @return the number of ShortUrl object in the database
+     */
+    public int size(){
+        return getAll().size();
     }
 
 }
