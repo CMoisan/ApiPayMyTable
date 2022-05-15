@@ -7,10 +7,10 @@ This API enable us to persist and use some shortened Urls. I used Spring Boot, S
 
 ## Features
 
-- POST /short_url permet de créer et persister une short URL
-- GET /short_url/:short_url_id permet de récupérer une short URL
-- PUT /short_url/:short_url_id permet de modifier une short URL (C'est à dire pouvoir remplacer l'ancienne Url tout en conservant le Short Url)
-- DELETE /short_url/:short_url_id permet de supprimer une short URL
+- POST /short_url allows to create and persist a short URL
+- GET /short_url/:short_url_id allows you to retrieve a short URL
+- PUT /short_url/:short_url_id allows to modify a short URL (i.e. to be able to replace the old Url while keeping the Short Url)
+- DELETE /short_url/:short_url_id allows you to delete a short URL
 
 For MongoDB Atlas I would have prefered to use Redis but in this case it was much more efficient to setup a Mongo Database. In the case of Redis I would have setup a Linux server with Redis on.
 
