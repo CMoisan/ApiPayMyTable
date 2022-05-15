@@ -26,12 +26,12 @@ public class UrlController {
      * @return the right ShortUrl or throw 404 error if the ShortUrl is missing
      */
     @GetMapping("/short_url/{id}")
-    Url one(@PathVariable String id) throws UnknownHostException {
-        Url u = database.get(id);
+    Url retrieve(@PathVariable String id) throws UnknownHostException {
+        Url retrievedUrl = database.get(id);
         //We check if the ShortUrl exist with this Id
-        if(u != null){
+        if(retrievedUrl != null){
             //If it exist we send it back
-            return createFullShortUrl(u);
+            return createFullShortUrl(retrievedUrl);
         }else{
             //If not we throw a 404 error
             throw new ResponseStatusException(
@@ -49,9 +49,9 @@ public class UrlController {
      */
     @PutMapping("/short_url/{id}")
     Url change(@PathVariable String id, @RequestBody String newUrl) throws IOException {
-        Url u1 = database.get(id);
+        Url url = database.get(id);
         //We check if the ShortUrl exist in the database and if the newUrl is functional
-        if(u1 != null && Tools.checkIfUrlWorks(newUrl)){
+        if(url != null && Tools.checkIfUrlWorks(newUrl)){
             //If yes we change the Url
             return createFullShortUrl(database.change(id, newUrl));
         }
@@ -71,11 +71,11 @@ public class UrlController {
      */
     @DeleteMapping("/short_url/{id}")
     Url delete(@PathVariable String id) throws UnknownHostException {
-        Url u = database.get(id);
+        Url url = database.get(id);
         //We check if the ShortUrl exist with this Id
-        if(u!=null) {
+        if(url!=null) {
             //If it exist we delete it
-            return createFullShortUrl(database.delete(u));
+            return createFullShortUrl(database.delete(url));
         }else {
             //If no it throw a 404 error
             throw new ResponseStatusException(
@@ -92,9 +92,9 @@ public class UrlController {
      */
     @PostMapping("/short_url")
     Url newShortUrl(@RequestBody String Url) throws IOException {
-        Url u1 = database.getFromUrl(Url);
+        Url retrievedUrl = database.getFromUrl(Url);
         //We check if the Url exist in the database and if it is functional
-        if(u1 == null && Tools.checkIfUrlWorks(Url)) {
+        if(retrievedUrl == null && Tools.checkIfUrlWorks(Url)) {
             //Generation of the ShortUrl identifier
             String shortUrlId = Tools.getSaltString();
             //Check if there is not already an Url Linked to this ShortUrl Identifier
@@ -107,7 +107,7 @@ public class UrlController {
 
         }else{
             //If there is already a ShortUrl Linked to this Url we send it back
-            return createFullShortUrl(u1);
+            return createFullShortUrl(retrievedUrl);
         }
     }
 
@@ -120,11 +120,11 @@ public class UrlController {
     public RedirectView redirect(@PathVariable String shorturl) {
         RedirectView redirectView = new RedirectView();
         //Retrieve the Url Object linked to the Complete ShortUrl
-        Url u = database.request(shorturl);
+        Url url = database.request(shorturl);
         //We check if the Url Object exist with this ShortUrl
-        if(u != null) {
+        if(url != null) {
             //If it exist we get the Url and we redirect the web browser by returning the redirectView
-            redirectView.setUrl(u.getUrl());
+            redirectView.setUrl(url.getUrl());
             return redirectView;
         }else
         {

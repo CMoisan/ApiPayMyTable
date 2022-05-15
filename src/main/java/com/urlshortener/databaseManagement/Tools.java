@@ -35,8 +35,8 @@ public class Tools {
      * @throws IOException
      */
     public static boolean checkIfUrlWorks(String url) throws IOException {
-        URL u = new URL(url);
-        HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+        URL urlHTTP = new URL(url);
+        HttpURLConnection huc = (HttpURLConnection) urlHTTP.openConnection();
         huc.setRequestMethod("GET");
         try {
             huc.connect();
