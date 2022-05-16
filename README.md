@@ -24,7 +24,7 @@ I also made sure that the URL we are given are working. But there is a limitatio
 
 I also wanted to make sure we don't have dupplication in the URLs linked to shortUrls so if you want to create an already shortened URL you will get the previously generated ShortUrl.
 
-I had trouble with the Complete ShortUrl Link. I thought it was important that the full link would be present in the response, but I didn't want to store it in the database for obvious migration reasons. So the best solution after experimenting with several solutions offered by Spring was to modify the ShortUrl just before sending it to adapt it to the right format. To find and validate the right Ip we use Apache Commons Validators.
+I had trouble with the Complete ShortUrl Link. I thought it was important that the full link would be present in the response, but I didn't want to store it in the database for obvious migration reasons. So the best solution after experimenting with several solutions offered by Spring was to modify the ShortUrl just before sending it to adapt it to the right format. It was difficult finding a way of having a Dynamic Ip. So i think the best way would be to use Proven and make the ip variable change in the differents environnements.
 
 Architecture :
 I used a classic Model View Controller to separate the different component and services.
