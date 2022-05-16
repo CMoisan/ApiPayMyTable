@@ -5,11 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
-
 @Document(collection = "URLs")
-public class Url {
+public class ShortUrlOP {
 
     @Id
     private int id;
@@ -18,7 +15,7 @@ public class Url {
     @Field(value="ShortUrl")
     private String ShortUrl;
 
-    public Url(int id, String Url, String ShortUrl){
+    public ShortUrlOP(int id, String Url, String ShortUrl){
         this.id = id;
         this.ShortUrl = ShortUrl;
         this.Url = Url;

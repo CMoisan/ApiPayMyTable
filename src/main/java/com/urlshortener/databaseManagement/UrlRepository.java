@@ -4,7 +4,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import com.urlshortener.classOP.Url;
+import com.urlshortener.classOP.ShortUrlOP;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
@@ -35,22 +35,22 @@ public class UrlRepository {
 
     /**
      * Save a single Url object in the database
-     * @param urlToSave we want to save
+     * @param shortUrlOPToSave we want to save
      * @return the url saved
      */
-    public Url add(Url urlToSave){
-        database.save(urlToSave, "URLs");
-        return urlToSave;
+    public ShortUrlOP add(ShortUrlOP shortUrlOPToSave){
+        database.save(shortUrlOPToSave, "URLs");
+        return shortUrlOPToSave;
     }
 
     /**
      * Delete a single Url Object in the database
-     * @param urlToDelete we want to remove
+     * @param shortUrlOPToDelete we want to remove
      * @return the deleted url
      */
-    public Url delete(Url urlToDelete){
-        database.remove(urlToDelete, "URLs");
-        return urlToDelete;
+    public ShortUrlOP delete(ShortUrlOP shortUrlOPToDelete){
+        database.remove(shortUrlOPToDelete, "URLs");
+        return shortUrlOPToDelete;
     }
 
     /**
@@ -59,11 +59,11 @@ public class UrlRepository {
      * @param newUrl is the Url we want to replace the current URL of the ShortUrl With
      * @return The new ShortUrl Object
      */
-    public Url change(String id,String newUrl){
-        Url url = get(id);
-        url.setUrl(newUrl);
-        add(url);
-        return url;
+    public ShortUrlOP change(String id, String newUrl){
+        ShortUrlOP shortUrlOP = get(id);
+        shortUrlOP.setUrl(newUrl);
+        add(shortUrlOP);
+        return shortUrlOP;
     }
 
     /**
@@ -71,15 +71,15 @@ public class UrlRepository {
      * @param idToRetrieve of the ShortUrl Object we want to retrieve
      * @return the ShortUrl Object linked to the id
      */
-    public Url get(String idToRetrieve){
-        List<Url> Datas = getAll();
-        Url retrievedUrl = null;
-        for(Url urlIterate : Datas){
-            if(idToRetrieve.equals(String.valueOf(urlIterate.getId()))){
-                retrievedUrl = urlIterate;
+    public ShortUrlOP get(String idToRetrieve){
+        List<ShortUrlOP> Datas = getAll();
+        ShortUrlOP retrievedShortUrlOP = null;
+        for(ShortUrlOP shortUrlOPIterate : Datas){
+            if(idToRetrieve.equals(String.valueOf(shortUrlOPIterate.getId()))){
+                retrievedShortUrlOP = shortUrlOPIterate;
             }
         }
-        return retrievedUrl;
+        return retrievedShortUrlOP;
     }
 
     /**
@@ -87,15 +87,15 @@ public class UrlRepository {
      * @param url of the ShortUrl Object we want to retrieve
      * @return the ShortUrl Object linked to the Url
      */
-    public Url getFromUrl(String url){
-        List<Url> Datas = getAll();
-        Url retrievedUrl = null;
-        for(Url urlIterate : Datas){
-            if(url.equals(urlIterate.getUrl())){
-                retrievedUrl = urlIterate;
+    public ShortUrlOP getFromUrl(String url){
+        List<ShortUrlOP> Datas = getAll();
+        ShortUrlOP retrievedShortUrlOP = null;
+        for(ShortUrlOP shortUrlOPIterate : Datas){
+            if(url.equals(shortUrlOPIterate.getUrl())){
+                retrievedShortUrlOP = shortUrlOPIterate;
             }
         }
-        return retrievedUrl;
+        return retrievedShortUrlOP;
     }
 
     /**
@@ -103,23 +103,23 @@ public class UrlRepository {
      * @param shortUrlToRetrieve of the ShortUrl Object we want to retrieve
      * @return the ShortUrl Object linked to the ShortURL
      */
-    public Url request(String shortUrlToRetrieve){
-        List<Url> Datas = getAll();
-        Url retrievedUrl = null;
-        for(Url urlIterate : Datas){
-            if(urlIterate.getShortUrl().equals(shortUrlToRetrieve)){
-                retrievedUrl = urlIterate;
+    public ShortUrlOP request(String shortUrlToRetrieve){
+        List<ShortUrlOP> Datas = getAll();
+        ShortUrlOP retrievedShortUrlOP = null;
+        for(ShortUrlOP shortUrlOPIterate : Datas){
+            if(shortUrlOPIterate.getShortUrl().equals(shortUrlToRetrieve)){
+                retrievedShortUrlOP = shortUrlOPIterate;
             }
         }
-        return retrievedUrl;
+        return retrievedShortUrlOP;
     }
 
     /**
      * Get all the ShortUrl Objects in the Database
      * @return a list of ShortUrl Objects
      */
-    public List<Url> getAll(){
-        return database.findAll(Url.class);
+    public List<ShortUrlOP> getAll(){
+        return database.findAll(ShortUrlOP.class);
     }
 
     /**
