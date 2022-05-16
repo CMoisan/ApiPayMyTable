@@ -35,10 +35,7 @@ public class Tools {
      * @throws IOException
      */
     public static boolean checkIfUrlWorks(String url) throws IOException {
-
-        return true;
-      //The Server where is the api can't reach any URL
-      /*  URL urlHTTP = new URL(url);
+        URL urlHTTP = new URL(url);
         HttpURLConnection huc = (HttpURLConnection) urlHTTP.openConnection();
         huc.setRequestMethod("GET");
         try {
@@ -48,7 +45,7 @@ public class Tools {
                     HttpStatus.NOT_FOUND, "Url not working"
             );
         }
-        return true;*/
+        return true;
     }
 
     /**
