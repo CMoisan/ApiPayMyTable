@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 @RestController
@@ -27,7 +26,7 @@ public class UrlController {
      * @return the right ShortUrl or throw 404 error if the ShortUrl is missing
      */
     @GetMapping("/short_url/{id}")
-    Url retrieve(@PathVariable String id) throws UnknownHostException, SocketException {
+    Url retrieve(@PathVariable String id){
         Url retrievedUrl = database.get(id);
         //We check if the ShortUrl exist with this Id
         if(retrievedUrl != null){
@@ -71,7 +70,7 @@ public class UrlController {
      * @return the deleted ShortUrl or a 404 error if the ShortUrl is missing
      */
     @DeleteMapping("/short_url/{id}")
-    Url delete(@PathVariable String id) throws UnknownHostException, SocketException {
+    Url delete(@PathVariable String id){
         Url url = database.get(id);
         //We check if the ShortUrl exist with this Id
         if(url!=null) {
@@ -143,7 +142,7 @@ public class UrlController {
      * @return an url object with the Complete ShortUrl
      * @throws UnknownHostException
      */
-    public Url createFullShortUrl(Url url) throws UnknownHostException, SocketException {
+    public Url createFullShortUrl(Url url){
         url.setLinkShortUrl(environment.getProperty("local.server.port"));
         return url;
     }

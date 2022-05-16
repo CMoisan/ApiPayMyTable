@@ -36,7 +36,7 @@ public class Url {
         this.ShortUrl = ShortUrl;
     }
 
-    public void setLinkShortUrl(String Port) throws UnknownHostException, SocketException {
+    public void setLinkShortUrl(String Port){
         this.ShortUrl = Tools.buildFullLink(Port) + ShortUrl;
     }
     public String getShortUrl(){

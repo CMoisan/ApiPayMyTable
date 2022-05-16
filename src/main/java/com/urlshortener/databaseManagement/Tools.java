@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Tools {
 
-    private static final InetAddressValidator validator
-            = InetAddressValidator.getInstance();
+    private static final String serverAddress = "149.91.88.209";//Or 127.0.0.1 when in local
+
 
     /**
      * This useful method allow us to generate a random 5 long string alphanumeric to create the Shorter Url
@@ -55,25 +55,9 @@ public class Tools {
      * @return the ip address
      * @throws UnknownHostException
      */
-    public static String getServerAddress() throws UnknownHostException, SocketException {
+    public static String getServerAddress(){
 
-        String rightAddress = "";
-
-        Enumeration e = NetworkInterface.getNetworkInterfaces();
-        while(e.hasMoreElements())
-        {
-            NetworkInterface n = (NetworkInterface) e.nextElement();
-            Enumeration ee = n.getInetAddresses();
-            while (ee.hasMoreElements())
-            {
-                InetAddress i = (InetAddress) ee.nextElement();
-                if (validator.isValidInet4Address(i.toString()) && i.toString() != "127.0.0.1"){
-                    rightAddress = i.toString();
-                }
-            }
-        }
-        if(rightAddress.equals("")) rightAddress = "127.0.0.1";
-        return rightAddress;
+        return serverAddress;
     }
 
 
@@ -83,7 +67,7 @@ public class Tools {
      * @return the complete ShortUrl
      * @throws UnknownHostException
      */
-    public static String buildFullLink(String serverPort) throws UnknownHostException, SocketException {
+    public static String buildFullLink(String serverPort){
         return "http://"+getServerAddress()+":"+serverPort+"/";
     }
 }

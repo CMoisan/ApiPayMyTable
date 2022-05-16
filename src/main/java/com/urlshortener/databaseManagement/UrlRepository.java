@@ -5,15 +5,10 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.urlshortener.classOP.Url;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
 
-
-
-//Ameliorer en faisant en sorte que la db charge tout au début et que les recherches se fassent sur la copie locale. Tout changement se fait en ligne et en locale
 public class UrlRepository {
 
     private static final String username = "user";
