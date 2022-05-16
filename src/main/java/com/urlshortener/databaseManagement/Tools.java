@@ -4,10 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.Random;
 
 public class Tools {
@@ -53,7 +51,20 @@ public class Tools {
      * @return the ip address
      * @throws UnknownHostException
      */
-    public static String getServerAddress() throws UnknownHostException {
+    public static String getServerAddress() throws UnknownHostException, SocketException {
+
+        Enumeration e = NetworkInterface.getNetworkInterfaces();
+        while(e.hasMoreElements())
+        {
+            NetworkInterface n = (NetworkInterface) e.nextElement();
+            Enumeration ee = n.getInetAddresses();
+            while (ee.hasMoreElements())
+            {
+                InetAddress i = (InetAddress) ee.nextElement();
+                System.out.println(i.getHostAddress());
+            }
+        }
+
         return InetAddress.getLocalHost().getHostAddress();
     }
 
@@ -64,7 +75,7 @@ public class Tools {
      * @return the complete ShortUrl
      * @throws UnknownHostException
      */
-    public static String buildFullLink(String serverPort) throws UnknownHostException {
+    public static String buildFullLink(String serverPort) throws UnknownHostException, SocketException {
         return "http://"+getServerAddress()+":"+serverPort+"/";
     }
 }
