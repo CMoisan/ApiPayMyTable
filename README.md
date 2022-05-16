@@ -16,7 +16,7 @@ For MongoDB Atlas I would have prefered to use Redis but in this case it was muc
 
 For Spring Data, it wasn't my first choice. I wanted to use Morphia but due to an issue (https://github.com/MorphiaOrg/morphia/issues/1876 Conveniently opened the day before I started working on this project) I couldn't work with it. So after some time troubleshooting I went with Spring Data.
 
-Another technical choice was the generation of ShortUrl. I decided to go with 5 character long Alphanumerical ID (36^5 possibilities) because it is a small project and even just this much possibilities minimizes the risk of duplication.
+Another technical choice was the generation of the ShortUrl. I decided to go with a 5 character long Alphanumerical ID (36^5 possibilities) because it is a small project and even just this much possibilities minimizes the risk of duplication.
 
 At first I wanted to make the URL the primary key of the ShortUrl Object but because we want to be able to change the Url of a ShortUrl object I went with a classic id for each Objects.
 
