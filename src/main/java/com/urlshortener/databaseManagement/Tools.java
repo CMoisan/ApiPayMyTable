@@ -1,5 +1,6 @@
 package com.urlshortener.databaseManagement;
 
+import org.apache.commons.validator.routines.InetAddressValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -9,6 +10,9 @@ import java.util.Enumeration;
 import java.util.Random;
 
 public class Tools {
+
+    private static final InetAddressValidator validator
+            = InetAddressValidator.getInstance();
 
     /**
      * This useful method allow us to generate a random 5 long string alphanumeric to create the Shorter Url
@@ -53,6 +57,8 @@ public class Tools {
      */
     public static String getServerAddress() throws UnknownHostException, SocketException {
 
+        String rightAddress = "";
+
         Enumeration e = NetworkInterface.getNetworkInterfaces();
         while(e.hasMoreElements())
         {
@@ -61,11 +67,13 @@ public class Tools {
             while (ee.hasMoreElements())
             {
                 InetAddress i = (InetAddress) ee.nextElement();
-                System.out.println(i.getHostAddress());
+                if (validator.isValidInet4Address(i.toString()) && i.toString() != "127.0.0.1"){
+                    rightAddress = i.toString();
+                }
             }
         }
-
-        return InetAddress.getLocalHost().getHostAddress();
+        if(rightAddress.equals("")) rightAddress = "127.0.0.1";
+        return rightAddress;
     }
 
 
