@@ -1,12 +1,10 @@
 package com.urlshortener.databaseManagement;
 
-import org.apache.commons.validator.routines.InetAddressValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.Enumeration;
 import java.util.Random;
 
 public class Tools {
