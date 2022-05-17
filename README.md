@@ -36,4 +36,4 @@ Possible improvements :
 
 - MongoDB also try to connect to localhost everytime we start the API but fail because there is no localhost database. It does not affect the rest of the application.
 
-- The way deletion and id are managed can cause new ShortUrl to Delete others (Id is based off the number of items in database, if we have item 0 and 1 and we delete item 0 the next time we create an item it will have id 1 and thus delete previous item 1)
+- ~~The way deletion and id are managed can cause new ShortUrl to Delete others (Id is based off the number of items in database, if we have item 0 and 1 and we delete item 0 the next time we create an item it will have id 1 and thus delete previous item 1)~~
