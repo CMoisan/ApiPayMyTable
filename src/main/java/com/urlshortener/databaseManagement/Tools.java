@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Tools {
 
-    private static final String serverAddress = "149.91.88.209";//Or 127.0.0.1 when in local
+    private static final String serverAddress = "127.0.0.1";//Or 127.0.0.1 when in local "149.91.88.209";
 
 
     /**

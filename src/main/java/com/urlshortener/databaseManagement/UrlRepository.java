@@ -130,4 +130,18 @@ public class UrlRepository {
         return getAll().size();
     }
 
+    /**
+     * Get the smallest id available
+     * @return the smallest id available
+     */
+    public int getSmallestId(){
+        int sizeOfDatabase = getAll().size();
+        for (int i = 0; i <= sizeOfDatabase-1;i++){
+            if(get(String.valueOf(i)) == null){
+                return i;
+            }
+        }
+        return sizeOfDatabase+1;
+    }
+
 }

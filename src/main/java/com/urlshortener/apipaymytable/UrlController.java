@@ -96,14 +96,14 @@ public class UrlController {
         //We check if the Url exist in the database and if it is functional
         if(retrievedShortUrlOP == null && Tools.checkIfUrlWorks(Url)) {
             //Generation of the ShortUrl identifier
-            String shortUrlId = Tools.getSaltString();
+            String shortUrlLink = Tools.getSaltString();
             //Check if there is not already an Url Linked to this ShortUrl Identifier
-            while (database.request(shortUrlId) != null) {
-                shortUrlId = Tools.getSaltString();
+            while (database.request(shortUrlLink) != null) {
+                shortUrlLink = Tools.getSaltString();
             }
             String url = Tools.getSaltString();
             //We add it to the database
-            return createFullShortUrl(database.add(new ShortUrlOP(database.size(), Url, shortUrlId)));
+            return createFullShortUrl(database.add(new ShortUrlOP(database.getSmallestId(), Url, shortUrlLink)));
 
         }else{
             //If there is already a ShortUrl Linked to this Url we send it back
