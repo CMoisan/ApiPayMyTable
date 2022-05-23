@@ -141,7 +141,7 @@ public class UrlRepository {
                 return i;
             }
         }
-        return sizeOfDatabase+1;
+        return sizeOfDatabase;
     }
 
 }
