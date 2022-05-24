@@ -14,6 +14,8 @@ This API enables us to persist and use some shortened Urls. I used Spring Boot, 
 
 ## Technical Choice
 
+I used Java 18 even if it is not a LTS version because I wanted to test the last release. During my apprenticeship I only used Java 7 and in my personal project I used java 11. For a more long term project I would have used the last LTS version released so Java 17.
+
 For MongoDB Atlas I would have prefered to use Redis but in this case it was much more efficient to setup a Mongo Database. In the case of Redis I would have setup a Linux server with Redis on.
 
 For Spring Data, it wasn't my first choice. I wanted to use Morphia but due to an issue (https://github.com/MorphiaOrg/morphia/issues/1876 Conveniently opened the day before I started working on this project) I couldn't work with it. So after some time troubleshooting I went with Spring Data.
