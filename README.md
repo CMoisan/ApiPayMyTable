@@ -1,7 +1,7 @@
 # ApiPayMyTable
 ## _A Nice Url Shortener API_
 
-![Spring Boot Icon]([https://www.dariawan.com/media/images/tutorial-spring-logo.width-1024.png]
+![Spring Boot Icon](https://www.dariawan.com/media/images/tutorial-spring-logo.width-1024.png)
 
 
 This API enables us to persist and use some shortened Urls. I used Spring Boot, Spring Data, MongoDB and MongoDB Atlas. See below for my choice justifications
