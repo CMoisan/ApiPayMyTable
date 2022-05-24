@@ -12,6 +12,8 @@ This API enables us to persist and use some shortened Urls. I used Spring Boot, 
 - PUT /short_url/:short_url_id allows to modify a short URL (i.e. to be able to replace the old Url while keeping the Short Url)
 - DELETE /short_url/:short_url_id allows you to delete a short URL
 
+## Technical Choice
+
 For MongoDB Atlas I would have prefered to use Redis but in this case it was much more efficient to setup a Mongo Database. In the case of Redis I would have setup a Linux server with Redis on.
 
 For Spring Data, it wasn't my first choice. I wanted to use Morphia but due to an issue (https://github.com/MorphiaOrg/morphia/issues/1876 Conveniently opened the day before I started working on this project) I couldn't work with it. So after some time troubleshooting I went with Spring Data.
@@ -29,7 +31,8 @@ I had trouble with the Complete ShortUrl Link. I thought it was important that t
 Architecture :
 I used a classic Model View Controller to separate the different component and services.
 
-Possible improvements : 
+## Possible improvements
+
  - The management of errors, at this time when a ShortUrl Object is missing in the database we only send a 404 error. But when we also send a 404 error if the URL used is not working. In the case where we modify a ShortUrl we don't know if there is a problem with the URL or with the ShortUrl Object.
 
 - The way I am currently sending back the complete ShortUrl may not be the optimal way. It may be interesting to look into it.
